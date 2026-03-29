@@ -132,6 +132,7 @@ function signatureTemplate() {
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
   <tr>
     <td width="100%" valign="top" bgcolor="#FFFFFF" __PATTERN_ATTR__ style="padding:15px 27px 18px 0;__PATTERN_STYLE__">
+      __MSO_PATTERN_OPEN__
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="304" style="width:304px;max-width:304px;border-collapse:collapse;border-spacing:0;">
         <tr>
           <td style="padding:0;font-size:14px;line-height:0;mso-line-height-alt:0;">
@@ -155,6 +156,7 @@ function signatureTemplate() {
           </td>
         </tr>
       </table>
+      __MSO_PATTERN_CLOSE__
     </td>
   </tr>
   <tr>
@@ -201,6 +203,15 @@ function buildHtml(values) {
     "background-color:#FFFFFF;background-image:url(" +
     u +
     ");background-repeat:repeat;background-position:0 0;";
+  /** Outlook (Win) ignores CSS background-image on cells; VML tile fill is the usual fix. */
+  const msoPatternOpen =
+    '<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:220px;">' +
+    '<v:fill type="tile" src="' +
+    u +
+    '" color="#ffffff" />' +
+    '<v:textbox inset="0,0,0,0" style="mso-fit-shape-to-text:true">' +
+    "<![endif]-->";
+  const msoPatternClose = "<!--[if gte mso 9]></v:textbox></v:rect><![endif]-->";
 
   let websiteHref = ensureUrl(values.websiteUrl);
   if (!websiteHref) websiteHref = "#";
@@ -216,6 +227,8 @@ function buildHtml(values) {
   const map = {
     __PATTERN_ATTR__: patternAttr,
     __PATTERN_STYLE__: patternStyle,
+    __MSO_PATTERN_OPEN__: msoPatternOpen,
+    __MSO_PATTERN_CLOSE__: msoPatternClose,
     __FULLNAME__: escapeHtml(values.fullName),
     __TITLE1__: escapeHtml(values.titleLine1),
     __TITLE2__: escapeHtml(values.titleLine2),
