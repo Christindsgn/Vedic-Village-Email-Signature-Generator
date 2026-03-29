@@ -30,12 +30,6 @@
     "default": "+91 90379 58990"
   },
   {
-    "id": "logoUrl",
-    "label": "Logo image URL",
-    "type": "url",
-    "hint": "Brown Vedic Village mark — absolute HTTPS URL"
-  },
-  {
     "id": "websiteUrl",
     "label": "Website URL",
     "type": "url",

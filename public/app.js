@@ -10,6 +10,7 @@ function hostedAssets() {
   const b = assetBase();
   return {
     patternBg: b + "/bg.png",
+    logo: b + "/Vedic-Logo.png",
     instagramIcon: b + "/Instagram.png",
     linkedinIcon: b + "/Linkedin.png",
   };
@@ -112,12 +113,10 @@ function buildSocial(instagramUrl, linkedinUrl, igIcon, liIcon) {
   return parts.join("") || '<span style="font-size:11px;color:#666;">Add social URLs in the form</span>';
 }
 
-function buildLogoHtml(url) {
-  const u = String(url || "").trim();
-  if (!u) return '<span style="font-size:11px;color:#666;">Add logo URL</span>';
+function buildLogoHtml(logoUrl) {
   return (
     '<img src="' +
-    escapeHtml(ensureUrl(u)) +
+    escapeHtml(ensureUrl(logoUrl)) +
     '" alt="Logo" border="0" style="display:block;border:0;max-height:40px;height:auto;width:auto;max-width:180px;">'
   );
 }
@@ -222,7 +221,7 @@ function buildHtml(values) {
     __EMAIL__: escapeHtml(values.email),
     __TEL__: escapeHtml(telRaw),
     __PHONE__: escapeHtml(values.phone),
-    __LOGO_IMG__: buildLogoHtml(values.logoUrl),
+    __LOGO_IMG__: buildLogoHtml(assets.logo),
     __WEBSITE_HREF__: escapeHtml(websiteHref),
     __WEBSITE_LABEL__: escapeHtml(values.websiteLabel),
     __LOCATIONS__: escapeHtml(values.locations),
