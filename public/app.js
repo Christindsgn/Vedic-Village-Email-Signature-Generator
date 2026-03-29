@@ -131,10 +131,12 @@ function signatureTemplate() {
   return `<!-- Vedic Village email signature — Sen (Google Fonts) -->
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
   <tr>
-    <td width="100%" height="155" valign="top" bgcolor="#FFFFFF" __PATTERN_ATTR__ style="padding:15px 27px 18px 27px;__PATTERN_STYLE__">
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="304" style="width:304px;max-width:304px;border-collapse:collapse;">
+    <td width="100%" valign="top" bgcolor="#FFFFFF" __PATTERN_ATTR__ style="padding:15px 27px 18px 27px;__PATTERN_STYLE__">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="304" style="width:304px;max-width:304px;border-collapse:collapse;border-spacing:0;">
         <tr>
-          <td style="font-family:${fontSans};font-size:14px;line-height:17px;font-weight:500;color:${text};padding:0 0 4px 0;">__FULLNAME__</td>
+          <td style="padding:0;font-size:14px;line-height:0;mso-line-height-alt:0;">
+            <span style="display:block;font-family:${fontSans};font-size:14px;line-height:normal;font-weight:500;color:${text};mso-line-height-rule:at-least;margin:0 0 8px 0;padding:0;">__FULLNAME__</span>
+          </td>
         </tr>
         <tr>
           <td style="font-family:${fontSans};font-size:11px;line-height:18px;font-weight:400;color:${text};padding:0;">__TITLE1__</td>
