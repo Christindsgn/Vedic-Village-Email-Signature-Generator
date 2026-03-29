@@ -131,7 +131,7 @@ function signatureTemplate() {
   return `<!-- Vedic Village email signature — Sen (Google Fonts) -->
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
   <tr>
-    <td width="100%" valign="top" bgcolor="#FFFFFF" __PATTERN_ATTR__ style="padding:15px 27px 18px 27px;__PATTERN_STYLE__">
+    <td width="100%" valign="top" bgcolor="#FFFFFF" __PATTERN_ATTR__ style="padding:15px 27px 18px 0;__PATTERN_STYLE__">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="304" style="width:304px;max-width:304px;border-collapse:collapse;border-spacing:0;">
         <tr>
           <td style="padding:0;font-size:14px;line-height:0;mso-line-height-alt:0;">
