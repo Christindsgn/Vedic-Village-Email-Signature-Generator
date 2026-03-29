@@ -120,7 +120,17 @@ function buildLogoHtml(logoUrl) {
 
 function formatAddress(s) {
   const lines = String(s || "").split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
-  return lines.map((l) => escapeHtml(l)).join("<br>");
+  // Gmail/Outlook can wrap long address text mid-word (ex: "P O" -> two lines).
+  // Use non-breaking spaces in known abbreviations so "P O" stays together.
+  return lines
+    .map((l) =>
+      escapeHtml(
+        l
+          .replace(/\bV\s+P\b/g, "V\u00A0P")
+          .replace(/\bP\s+O\b/g, "P\u00A0O")
+      )
+    )
+    .join("<br>");
 }
 
 function signatureTemplate() {
