@@ -158,7 +158,7 @@ function signatureTemplate() {
     </td>
   </tr>
   <tr>
-    <td width="100%" bgcolor="${footerBg}" style="background-color:${footerBg};padding:16px 27px 20px 27px;">
+    <td width="100%" bgcolor="${footerBg}" style="background-color:${footerBg};padding:16px 16px 16px 16px;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
         <tr>
           <td class="vv-s" width="304" valign="bottom" style="vertical-align:bottom;width:304px;max-width:304px;padding:0 16px 0 0;">
@@ -177,7 +177,7 @@ function signatureTemplate() {
             </table>
           </td>
           <td class="vv-s vv-s2 vv-l" valign="bottom" align="center" style="vertical-align:bottom;text-align:center;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" width="176" style="width:176px;max-width:176px;border-collapse:collapse;margin:0 auto;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="right" width="176" style="width:176px;max-width:176px;border-collapse:collapse;margin:0;">
               <tr>
                 <td align="center" style="padding:0 0 12px 0;text-align:center;">__LOGO_IMG__</td>
               </tr>
