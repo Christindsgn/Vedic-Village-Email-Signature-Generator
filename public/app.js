@@ -26,13 +26,10 @@ const BRAND = {
   /** Social vectors in Figma use ~#a24213 */
   socialBrown: "#a24213",
   footerBg: "#fdfaf7",
-  fontSans: "'Sen',Arial,Helvetica,sans-serif",
+  /** Webfonts strip in Gmail/Outlook — stack uses OS UI fonts; weights 400/500 still apply. */
+  fontSans:
+    "system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Helvetica,Arial,sans-serif",
 };
-
-const FONT_SNIPPET =
-  '<link rel="preconnect" href="https://fonts.googleapis.com">' +
-  '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' +
-  '<link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;500;600;700;800&display=swap" rel="stylesheet">';
 
 /** Small screens: stack footer columns. Outlook desktop ignores @media — keeps 2-col (safe fallback). */
 const RESPONSIVE_STYLE =
@@ -46,9 +43,7 @@ const RESPONSIVE_STYLE =
   "</style>";
 
 const HEAD_SNIPPET =
-  FONT_SNIPPET +
-  RESPONSIVE_STYLE +
-  '<meta name="viewport" content="width=device-width,initial-scale=1">';
+  RESPONSIVE_STYLE + '<meta name="viewport" content="width=device-width,initial-scale=1">';
 
 function escapeHtml(s) {
   if (s == null || s === "") return "";
@@ -130,7 +125,7 @@ function formatAddress(s) {
 
 function signatureTemplate() {
   const { text, muted, link, footerBg, fontSans } = BRAND;
-  return `<!-- Vedic Village email signature — Sen (Google Fonts) -->
+  return `<!-- Vedic Village email signature — system sans -->
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
   <tr>
     <td width="100%" valign="top" bgcolor="#FFFFFF" __PATTERN_ATTR__ style="padding:16px 24px 16px 0;__PATTERN_STYLE__">
