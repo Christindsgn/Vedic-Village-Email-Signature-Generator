@@ -16,7 +16,9 @@ function hostedAssets() {
   };
 }
 
-/** Figma Vedic Village, frame 663:5185 — read via Figma MCP. */
+/** Hero pattern: bg.png ~899×233 — scale to signature width; Figma 663:5185. */
+const PATTERN_BG_WIDTH_PX = 600;
+
 const BRAND = {
   text: "#000000",
   muted: "#000000",
@@ -131,7 +133,7 @@ function signatureTemplate() {
   return `<!-- Vedic Village email signature — Sen (Google Fonts) -->
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
   <tr>
-    <td width="100%" valign="top" bgcolor="#FFFFFF" __PATTERN_ATTR__ style="padding:15px 27px 18px 0;__PATTERN_STYLE__">
+    <td width="100%" valign="top" bgcolor="#FFFFFF" __PATTERN_ATTR__ style="padding:16px 24px 16px 0;__PATTERN_STYLE__">
       __MSO_PATTERN_OPEN__
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="304" style="width:304px;max-width:304px;border-collapse:collapse;border-spacing:0;">
         <tr>
@@ -202,11 +204,13 @@ function buildHtml(values) {
   const patternStyle =
     "background-color:#FFFFFF;background-image:url(" +
     u +
-    ");background-repeat:repeat;background-position:0 0;";
-  /** Outlook (Win) ignores CSS background-image on cells; VML tile fill is the usual fix. */
+    ");background-repeat:no-repeat;background-position:right top;background-size:" +
+    PATTERN_BG_WIDTH_PX +
+    "px auto;";
+  /** Outlook (Win): VML frame stretches the image to the rect (tile used native 899px → huge stars). */
   const msoPatternOpen =
     '<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:220px;">' +
-    '<v:fill type="tile" src="' +
+    '<v:fill type="frame" src="' +
     u +
     '" color="#ffffff" />' +
     '<v:textbox inset="0,0,0,0" style="mso-fit-shape-to-text:true">' +
