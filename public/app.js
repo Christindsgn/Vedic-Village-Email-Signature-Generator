@@ -16,7 +16,7 @@ function hostedAssets() {
   };
 }
 
-/** Figma file Vedic Village, frame 647:4803 (“-- Email signature” page) — read via Figma MCP. */
+/** Figma Vedic Village, frame 663:5185 — read via Figma MCP. */
 const BRAND = {
   text: "#000000",
   muted: "#000000",
@@ -117,7 +117,7 @@ function buildLogoHtml(logoUrl) {
   return (
     '<img src="' +
     escapeHtml(ensureUrl(logoUrl)) +
-    '" alt="Logo" border="0" style="display:block;border:0;max-height:40px;height:auto;width:auto;max-width:180px;">'
+    '" alt="Logo" border="0" style="display:block;margin:0 auto;border:0;max-height:40px;height:auto;width:auto;max-width:120px;">'
   );
 }
 
@@ -131,10 +131,10 @@ function signatureTemplate() {
   return `<!-- Vedic Village email signature — Sen (Google Fonts) -->
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
   <tr>
-    <td width="100%" height="173" valign="top" bgcolor="#FFFFFF" __PATTERN_ATTR__ style="padding:31px 27px 0 27px;__PATTERN_STYLE__">
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
+    <td width="100%" height="155" valign="top" bgcolor="#FFFFFF" __PATTERN_ATTR__ style="padding:15px 27px 18px 27px;__PATTERN_STYLE__">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="304" style="width:304px;max-width:304px;border-collapse:collapse;">
         <tr>
-          <td style="font-family:${fontSans};font-size:16px;line-height:20px;font-weight:500;color:${text};padding:0 0 4px 0;">__FULLNAME__</td>
+          <td style="font-family:${fontSans};font-size:14px;line-height:18px;font-weight:500;color:${text};padding:0 0 4px 0;">__FULLNAME__</td>
         </tr>
         <tr>
           <td style="font-family:${fontSans};font-size:11px;line-height:18px;font-weight:400;color:${text};padding:0 0 2px 0;">__TITLE1__</td>
@@ -144,12 +144,12 @@ function signatureTemplate() {
         </tr>
         <tr>
           <td style="padding:0 0 6px 0;">
-            <a href="__MAILTO__" style="font-family:${fontSans};font-size:12px;line-height:20px;font-weight:500;color:${link};text-decoration:none;">__EMAIL__</a>
+            <a href="__MAILTO__" style="font-family:${fontSans};font-size:12px;line-height:20px;font-weight:500;color:${link};text-decoration:none;letter-spacing:0.12px;">__EMAIL__</a>
           </td>
         </tr>
         <tr>
           <td style="padding:0;">
-            <a href="__TEL__" style="font-family:${fontSans};font-size:12px;line-height:20px;font-weight:500;color:${link};text-decoration:none;">__PHONE__</a>
+            <a href="__TEL__" style="font-family:${fontSans};font-size:12px;line-height:20px;font-weight:500;color:${link};text-decoration:none;letter-spacing:0.12px;">__PHONE__</a>
           </td>
         </tr>
       </table>
@@ -159,28 +159,28 @@ function signatureTemplate() {
     <td width="100%" bgcolor="${footerBg}" style="background-color:${footerBg};padding:16px 27px 20px 27px;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
         <tr>
-          <td class="vv-s" width="58%" valign="top" style="vertical-align:top;padding:0 16px 0 0;">
+          <td class="vv-s" width="304" valign="bottom" style="vertical-align:bottom;width:304px;max-width:304px;padding:0 16px 0 0;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
               <tr>
-                <td style="padding:0 0 10px 0;">__LOGO_IMG__</td>
-              </tr>
-              <tr>
                 <td style="padding:0 0 6px 0;">
-                  <a href="__WEBSITE_HREF__" style="font-family:${fontSans};font-size:10px;line-height:20px;font-weight:500;color:${link};text-decoration:none;">__WEBSITE_LABEL__</a>
+                  <a href="__WEBSITE_HREF__" style="font-family:${fontSans};font-size:10px;line-height:16px;font-weight:500;color:${link};text-decoration:none;letter-spacing:0.1px;">__WEBSITE_LABEL__</a>
                 </td>
               </tr>
               <tr>
-                <td style="font-family:${fontSans};font-size:8px;line-height:15px;font-weight:400;color:${muted};padding:0;">__LOCATIONS__</td>
+                <td style="font-family:${fontSans};font-size:8px;line-height:15px;font-weight:400;color:${muted};padding:0 0 10px 0;">__LOCATIONS__</td>
+              </tr>
+              <tr>
+                <td style="padding:0;">__SOCIAL__</td>
               </tr>
             </table>
           </td>
-          <td class="vv-s vv-s2 vv-l" width="42%" valign="top" align="right" style="vertical-align:top;text-align:right;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="right" style="border-collapse:collapse;margin-left:auto;">
+          <td class="vv-s vv-s2 vv-l" valign="bottom" align="center" style="vertical-align:bottom;text-align:center;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" width="176" style="width:176px;max-width:176px;border-collapse:collapse;margin:0 auto;">
               <tr>
-                <td class="vv-l" style="padding:0 0 12px 0;text-align:right;">__SOCIAL__</td>
+                <td align="center" style="padding:0 0 12px 0;text-align:center;">__LOGO_IMG__</td>
               </tr>
               <tr>
-                <td class="vv-l" style="font-family:${fontSans};font-size:8px;line-height:15px;font-weight:400;color:${muted};text-align:right;max-width:220px;">__ADDRESS__</td>
+                <td class="vv-l" align="center" style="font-family:${fontSans};font-size:8px;line-height:12px;font-weight:400;color:${muted};text-align:center;">__ADDRESS__</td>
               </tr>
             </table>
           </td>

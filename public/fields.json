@@ -45,7 +45,7 @@
     "id": "locations",
     "label": "Locations (pipe-separated)",
     "type": "text",
-    "default": "Alleppey | Kodungallur | Begaluru | Sriperumbdur"
+    "default": "Alleppey | Kodungallur | Bengaluru | Sriperumbdur"
   },
   {
     "id": "instagramUrl",
