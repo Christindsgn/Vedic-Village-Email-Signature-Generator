@@ -1,3 +1,20 @@
+/** Same origin when served over HTTP(S); fallback for odd contexts. */
+function assetBase() {
+  if (typeof location !== "undefined" && /^https?:/i.test(location.protocol)) {
+    return location.origin;
+  }
+  return "https://framer-email-signature-generator.vercel.app";
+}
+
+function hostedAssets() {
+  const b = assetBase();
+  return {
+    patternBg: b + "/bg.png",
+    instagramIcon: b + "/Instagram.png",
+    linkedinIcon: b + "/Linkedin.png",
+  };
+}
+
 /** Figma file Vedic Village, frame 647:4803 (“-- Email signature” page) — read via Figma MCP. */
 const BRAND = {
   text: "#000000",
@@ -176,25 +193,21 @@ function signatureTemplate() {
 }
 
 function buildHtml(values) {
-  const pattern = String(values.patternBgUrl || "").trim();
-  let patternAttr = "";
-  let patternStyle = "background-color:#FFFFFF;";
-  if (pattern) {
-    const u = escapeHtml(ensureUrl(pattern));
-    patternAttr = 'background="' + u + '"';
-    patternStyle +=
-      "background-image:url(" +
-      u +
-      ");background-repeat:repeat;background-position:0 0;";
-  }
+  const assets = hostedAssets();
+  const u = escapeHtml(ensureUrl(assets.patternBg));
+  const patternAttr = 'background="' + u + '"';
+  const patternStyle =
+    "background-color:#FFFFFF;background-image:url(" +
+    u +
+    ");background-repeat:repeat;background-position:0 0;";
 
   let websiteHref = ensureUrl(values.websiteUrl);
   if (!websiteHref) websiteHref = "#";
   const social = buildSocial(
     values.instagramUrl,
     values.linkedinUrl,
-    values.instagramIconUrl,
-    values.linkedinIconUrl
+    assets.instagramIcon,
+    assets.linkedinIcon
   );
 
   const telRaw = telHref(values.phone);

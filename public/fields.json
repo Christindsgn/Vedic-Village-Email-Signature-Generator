@@ -1,11 +1,5 @@
 [
   {
-    "id": "patternBgUrl",
-    "label": "Top pattern background (image URL)",
-    "type": "url",
-    "hint": "Export the star pattern from Figma as PNG/WebP, host on HTTPS, paste URL. Leave empty for plain white."
-  },
-  {
     "id": "fullName",
     "label": "Full name",
     "type": "text",
@@ -67,17 +61,6 @@
   {
     "id": "linkedinUrl",
     "label": "LinkedIn profile URL",
-    "type": "url"
-  },
-  {
-    "id": "instagramIconUrl",
-    "label": "Instagram icon image URL",
-    "type": "url",
-    "hint": "Small square PNG on HTTPS (~20px). Optional if you use text links only."
-  },
-  {
-    "id": "linkedinIconUrl",
-    "label": "LinkedIn icon image URL",
     "type": "url"
   },
   {
