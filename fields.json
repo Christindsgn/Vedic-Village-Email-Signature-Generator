@@ -1,0 +1,89 @@
+[
+  {
+    "id": "patternBgUrl",
+    "label": "Top pattern background (image URL)",
+    "type": "url",
+    "hint": "Export the star pattern from Figma as PNG/WebP, host on HTTPS, paste URL. Leave empty for plain white."
+  },
+  {
+    "id": "fullName",
+    "label": "Full name",
+    "type": "text",
+    "default": "Nikhitha Raju"
+  },
+  {
+    "id": "titleLine1",
+    "label": "Title / role (line 1)",
+    "type": "text",
+    "default": "GSS- Human Resource"
+  },
+  {
+    "id": "titleLine2",
+    "label": "Company (line 2)",
+    "type": "text",
+    "default": "Vedic Village Hotels & Resorts"
+  },
+  {
+    "id": "email",
+    "label": "Email",
+    "type": "email",
+    "default": "hr.kodungallur@vedicvillagehotels.in"
+  },
+  {
+    "id": "phone",
+    "label": "Phone",
+    "type": "text",
+    "default": "+91 90379 58990"
+  },
+  {
+    "id": "logoUrl",
+    "label": "Logo image URL",
+    "type": "url",
+    "hint": "Brown Vedic Village mark — absolute HTTPS URL"
+  },
+  {
+    "id": "websiteUrl",
+    "label": "Website URL",
+    "type": "url",
+    "default": "https://vedicvillagehotels.com"
+  },
+  {
+    "id": "websiteLabel",
+    "label": "Website text",
+    "type": "text",
+    "default": "vedicvillagehotels.com"
+  },
+  {
+    "id": "locations",
+    "label": "Locations (pipe-separated)",
+    "type": "text",
+    "default": "Alleppey | Kodungallur | Begaluru | Sriperumbdur"
+  },
+  {
+    "id": "instagramUrl",
+    "label": "Instagram profile URL",
+    "type": "url"
+  },
+  {
+    "id": "linkedinUrl",
+    "label": "LinkedIn profile URL",
+    "type": "url"
+  },
+  {
+    "id": "instagramIconUrl",
+    "label": "Instagram icon image URL",
+    "type": "url",
+    "hint": "Small square PNG on HTTPS (~20px). Optional if you use text links only."
+  },
+  {
+    "id": "linkedinIconUrl",
+    "label": "LinkedIn icon image URL",
+    "type": "url"
+  },
+  {
+    "id": "address",
+    "label": "Address (one or two lines)",
+    "type": "textarea",
+    "default": "Sabari Infra - V P Thuruthu, Kottapuram P O,\nKodungallur, Thrissur, Kerala 680 667, India"
+  }
+]

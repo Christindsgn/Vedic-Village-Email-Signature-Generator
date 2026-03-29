@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vedic Village — Email signature</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Email signature</h1>
+    <p class="sub">Fill in your details, then copy — Gmail needs <em>rich</em> paste (not raw code).</p>
+    <p class="warn"><strong>Where to paste:</strong> Gmail → Settings → Signature. Outlook on the web → Mail → Signatures (not the new-message body). <strong>Outlook often needs the copy button</strong> (it grabs the <em>rendered</em> preview first). If you still see code: click inside the preview, ⌘A / Ctrl+A, copy, paste into the signature box.</p>
+    <button type="button" id="copyBtn" class="copy">Copy for Gmail / Outlook</button>
+  </header>
+  <main class="layout">
+    <section class="panel" aria-label="Form">
+      <div id="fields"></div>
+    </section>
+    <section class="panel preview-wrap" aria-label="Preview">
+      <h2 class="preview-title">Preview</h2>
+      <iframe id="preview" title="Signature preview"></iframe>
+    </section>
+  </main>
+  <textarea id="fallbackCopy" class="sr-only" readonly aria-hidden="true"></textarea>
+  <footer class="help">
+    <strong>Gmail:</strong> Gear → <strong>See all settings</strong> → <strong>General</strong> → scroll to <strong>Signature</strong> → create/edit → paste there. Then new emails use that signature automatically. <strong>Do not paste into the compose window</strong> to install it. If paste shows code in Signature settings: use Chrome, use our copy button, or copy from the preview (⌘A / Ctrl+A) and paste again.
+    <strong>Outlook web:</strong> Settings → Mail → Signatures → edit — paste there. If the editor shows raw tags, use the copy button (preview-based) or copy from the preview area after selecting all.
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>

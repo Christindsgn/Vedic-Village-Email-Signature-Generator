@@ -1,0 +1,178 @@
+:root {
+  --bg: #1a1a1a;
+  --panel: #262626;
+  --border: #3d3d3d;
+  --text: #f0f0f0;
+  --muted: #9a9a9a;
+  --accent: #0b7a72;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.45;
+  min-height: 100vh;
+}
+
+.top {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+}
+
+.top h1 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.sub {
+  margin: 0;
+  flex: 1;
+  color: var(--muted);
+  font-size: 0.875rem;
+  min-width: 200px;
+}
+
+.warn {
+  width: 100%;
+  margin: 0;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  background: rgba(210, 140, 10, 0.15);
+  border: 1px solid rgba(210, 140, 10, 0.35);
+  border-radius: 6px;
+  color: var(--text);
+}
+
+.warn strong {
+  color: #e8c077;
+}
+
+.copy {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 0.55rem 1.1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.copy:hover {
+  filter: brightness(1.08);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 380px) 1fr;
+  gap: 0;
+  min-height: calc(100vh - 120px);
+}
+
+@media (max-width: 800px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel {
+  padding: 1.25rem 1.5rem;
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+}
+
+.preview-wrap {
+  border-right: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-title {
+  margin: 0 0 0.75rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+#preview {
+  flex: 1;
+  width: 100%;
+  min-height: 320px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #e8e8e8;
+}
+
+.field {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.field .label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #1e1e1e;
+  color: var(--text);
+  font-size: 0.875rem;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 4rem;
+}
+
+.hint {
+  margin: 0.35rem 0 0;
+  font-size: 0.7rem;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.help {
+  padding: 1rem 1.5rem 2rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  max-width: 900px;
+}
+
+.help strong {
+  color: var(--text);
+  margin-right: 0.35rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
