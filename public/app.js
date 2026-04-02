@@ -355,19 +355,23 @@ async function copySignatureForPaste() {
     tableHtml +
     "</body></html>";
 
-  /** Outlook web often ignores ClipboardItem; copying the live preview matches a manual “select all → copy” and usually stays rich. */
-  if (copyFromPreviewIframe()) return "rich";
-
-  if (navigator.clipboard && typeof ClipboardItem !== "undefined") {
+  /**
+   * Prefer ClipboardItem (raw HTML string) over iframe execCommand copy.
+   * execCommand(“copy”) on the rendered DOM causes Chromium to strip
+   * <!--[if gte mso 9]> conditional comments, so Outlook Desktop never
+   * receives the VML needed to render the background image.
+   * ClipboardItem writes the literal HTML string, preserving VML intact.
+   */
+  if (navigator.clipboard && typeof ClipboardItem !== “undefined”) {
     for (const htmlPayload of [richTableOnly, richFull]) {
       try {
         await navigator.clipboard.write([
           new ClipboardItem({
-            "text/html": new Blob([htmlPayload], { type: "text/html" }),
-            "text/plain": new Blob([plain], { type: "text/plain" }),
+            “text/html”: new Blob([htmlPayload], { type: “text/html” }),
+            “text/plain”: new Blob([plain], { type: “text/plain” }),
           }),
         ]);
-        return "rich";
+        return “rich”;
       } catch {
         /* try next */
       }
@@ -375,14 +379,17 @@ async function copySignatureForPaste() {
     try {
       await navigator.clipboard.write([
         new ClipboardItem({
-          "text/html": new Blob([richTableOnly], { type: "text/html" }),
+          “text/html”: new Blob([richTableOnly], { type: “text/html” }),
         }),
       ]);
-      return "rich";
+      return “rich”;
     } catch {
       /* fall through */
     }
   }
+
+  /** Fallback for browsers where ClipboardItem is blocked: copy from live preview iframe. */
+  if (copyFromPreviewIframe()) return “rich”;
 
   try {
     const wrap = document.createElement("div");
