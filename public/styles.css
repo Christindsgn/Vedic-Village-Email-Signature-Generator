@@ -98,24 +98,160 @@ body {
   border-right: none;
   display: flex;
   flex-direction: column;
+  padding: 0;
 }
 
-.preview-title {
-  margin: 0 0 0.75rem;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+/* ── DevTools-style responsive bar ── */
+.rwd-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.45rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.rwd-presets {
+  display: flex;
+  gap: 0;
+}
+
+.rwd-preset {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: none;
+  border: none;
   color: var(--muted);
-  font-weight: 600;
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.12s;
+}
+
+.rwd-preset:hover {
+  color: var(--text);
+}
+
+.rwd-preset.active {
+  color: var(--accent);
+}
+
+.rwd-dims {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: auto;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.dim-input {
+  width: 56px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 0.72rem;
+  padding: 0.2rem 0.35rem;
+  border-radius: 4px;
+  text-align: center;
+  -moz-appearance: textfield;
+}
+
+.dim-input::-webkit-inner-spin-button,
+.dim-input::-webkit-outer-spin-button {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.dim-input:focus {
+  outline: 1px solid var(--accent);
+  -moz-appearance: number-input;
+}
+
+.dim-input:focus::-webkit-inner-spin-button {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.dim-x {
+  color: var(--border);
+}
+
+.dim-h {
+  min-width: 28px;
+}
+
+/* ── Stage (dark area around the viewport) ── */
+.rwd-stage {
+  flex: 1;
+  overflow: auto;
+  background: #111;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 32px 40px;
+}
+
+/* ── The draggable viewport frame ── */
+.rwd-viewport {
+  position: relative;
+  min-width: 280px;
+  box-shadow: 0 0 0 1px var(--border), 0 4px 24px rgba(0,0,0,0.5);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.rwd-viewport.rwd-full {
+  width: 100%;
 }
 
 #preview {
-  flex: 1;
+  display: block;
   width: 100%;
   min-height: 320px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  border: none;
   background: #e8e8e8;
+  border-radius: 2px;
+}
+
+/* ── Resize handles ── */
+.rwd-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 12px;
+  cursor: ew-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rwd-handle-r {
+  right: -12px;
+}
+
+.rwd-handle-l {
+  left: -12px;
+}
+
+.rwd-handle::after {
+  content: "";
+  width: 3px;
+  height: 36px;
+  border-radius: 2px;
+  background: var(--border);
+  transition: background 0.15s, height 0.15s;
+}
+
+.rwd-handle:hover::after,
+.rwd-handle.dragging::after {
+  background: var(--accent);
+  height: 48px;
 }
 
 .field {

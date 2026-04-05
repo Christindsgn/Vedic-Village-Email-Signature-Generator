@@ -1,9 +1,20 @@
-/** Same origin when served over HTTP(S); fallback for odd contexts. */
+const PRODUCTION_BASE = "https://framer-email-signature-generator.vercel.app";
+
+/**
+ * Returns the base URL for hosted assets.
+ * When running on localhost the generated signature HTML is pasted into
+ * Outlook/Gmail — those clients can't reach localhost, so we always fall
+ * back to the production Vercel URL for asset paths.
+ */
 function assetBase() {
   if (typeof location !== "undefined" && /^https?:/i.test(location.protocol)) {
+    const host = location.hostname;
+    if (host === "localhost" || host === "127.0.0.1" || host.endsWith(".local")) {
+      return PRODUCTION_BASE;
+    }
     return location.origin;
   }
-  return "https://framer-email-signature-generator.vercel.app";
+  return PRODUCTION_BASE;
 }
 
 function hostedAssets() {
@@ -26,21 +37,12 @@ const BRAND = {
   /** Social vectors in Figma use ~#a24213 */
   socialBrown: "#a24213",
   footerBg: "#fdfaf7",
-  /** Webfonts strip in Gmail/Outlook — stack uses OS UI fonts; weights 400/500 still apply. */
-  fontSans:
-    "system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Helvetica,Arial,sans-serif",
+  /** Verdana is web-safe and renders consistently across Outlook (Win/Mac) and Gmail. */
+  fontSans: "Verdana,Geneva,Tahoma,sans-serif",
 };
 
-/** Small screens: stack footer columns. Outlook desktop ignores @media — keeps 2-col (safe fallback). */
-const RESPONSIVE_STYLE =
-  '<style type="text/css">' +
-  "@media only screen and (max-width:480px){" +
-  ".vv-s{display:block!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;}" +
-  ".vv-s2{padding-top:16px!important;}" +
-  ".vv-l,.vv-l table,.vv-l td{text-align:left!important;}" +
-  ".vv-l table{margin-left:0!important;}" +
-  "}" +
-  "</style>";
+/** Footer is a single centered column — no multi-column collapse needed. */
+const RESPONSIVE_STYLE = "";
 
 const HEAD_SNIPPET =
   RESPONSIVE_STYLE + '<meta name="viewport" content="width=device-width,initial-scale=1">';
@@ -79,7 +81,7 @@ function buildSocial(instagramUrl, linkedinUrl, igIcon, liIcon) {
   const parts = [];
   if (igIcon && ig) {
     parts.push(
-      '<a href="' + escapeHtml(ig) + '" style="text-decoration:none;margin-right:12px;display:inline-block;"><img src="' + escapeHtml(ensureUrl(igIcon)) + '" width="20" height="20" alt="Instagram" border="0" style="display:block;border:0;"></a>'
+      '<a href="' + escapeHtml(ig) + '" style="text-decoration:none;margin-right:20px;display:inline-block;"><img src="' + escapeHtml(ensureUrl(igIcon)) + '" width="24" height="24" alt="Instagram" border="0" style="display:block;border:0;"></a>'
     );
   } else if (ig) {
     parts.push(
@@ -94,7 +96,7 @@ function buildSocial(instagramUrl, linkedinUrl, igIcon, liIcon) {
   }
   if (liIcon && li) {
     parts.push(
-      '<a href="' + escapeHtml(li) + '" style="text-decoration:none;display:inline-block;"><img src="' + escapeHtml(ensureUrl(liIcon)) + '" width="20" height="20" alt="LinkedIn" border="0" style="display:block;border:0;"></a>'
+      '<a href="' + escapeHtml(li) + '" style="text-decoration:none;display:inline-block;"><img src="' + escapeHtml(ensureUrl(liIcon)) + '" width="24" height="24" alt="LinkedIn" border="0" style="display:block;border:0;"></a>'
     );
   } else if (li) {
     parts.push(
@@ -114,7 +116,7 @@ function buildLogoHtml(logoUrl) {
   return (
     '<img src="' +
     escapeHtml(ensureUrl(logoUrl)) +
-    '" alt="Logo" border="0" style="display:block;margin:0 auto;border:0;max-height:40px;height:auto;width:auto;max-width:120px;">'
+    '" alt="Logo" border="0" style="display:block;margin:0 auto;border:0;max-height:32px;height:auto;width:auto;max-width:120px;">'
   );
 }
 
@@ -134,16 +136,16 @@ function formatAddress(s) {
 }
 
 function signatureTemplate() {
-  const { text, muted, link, footerBg, fontSans } = BRAND;
-  return `<!-- Vedic Village email signature — system sans -->
+  const { text, link, footerBg, fontSans } = BRAND;
+  return `<!-- Vedic Village email signature — Verdana -->
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
   <tr>
-    <td width="100%" valign="top" bgcolor="#FFFFFF" __PATTERN_ATTR__ style="padding:16px 24px 16px 0;__PATTERN_STYLE__">
+    <td width="100%" valign="top" bgcolor="#FFFFFF" __PATTERN_ATTR__ style="padding:15px 24px 15px 0;__PATTERN_STYLE__">
       __MSO_PATTERN_OPEN__
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="304" style="width:304px;max-width:304px;border-collapse:collapse;border-spacing:0;">
         <tr>
-          <td style="padding:0;font-size:14px;line-height:0;mso-line-height-alt:0;">
-            <span style="display:block;font-family:${fontSans};font-size:14px;line-height:normal;font-weight:500;color:${text};mso-line-height-rule:at-least;margin:0 0 8px 0;padding:0;">__FULLNAME__</span>
+          <td style="padding:0;">
+            <span style="display:block;font-family:${fontSans};font-size:14px;line-height:normal;font-weight:bold;color:${text};margin:0 0 8px 0;padding:0;">__FULLNAME__</span>
           </td>
         </tr>
         <tr>
@@ -154,12 +156,12 @@ function signatureTemplate() {
         </tr>
         <tr>
           <td style="padding:0 0 8px 0;">
-            <a href="__MAILTO__" style="font-family:${fontSans};font-size:12px;line-height:20px;font-weight:500;color:${link};text-decoration:none;letter-spacing:0.12px;">__EMAIL__</a>
+            <a href="__MAILTO__" style="font-family:${fontSans};font-size:12px;line-height:20px;font-weight:400;color:${link};text-decoration:none;letter-spacing:0.12px;">__EMAIL__</a>
           </td>
         </tr>
         <tr>
           <td style="padding:0;">
-            <a href="__TEL__" style="font-family:${fontSans};font-size:12px;line-height:20px;font-weight:500;color:${link};text-decoration:none;letter-spacing:0.12px;">__PHONE__</a>
+            <a href="__TEL__" style="font-family:${fontSans};font-size:12px;line-height:20px;font-weight:400;color:${link};text-decoration:none;letter-spacing:0.12px;">__PHONE__</a>
           </td>
         </tr>
       </table>
@@ -167,34 +169,27 @@ function signatureTemplate() {
     </td>
   </tr>
   <tr>
-    <td width="100%" bgcolor="${footerBg}" style="background-color:${footerBg};padding:16px 16px 16px 16px;">
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
+    <td width="100%" bgcolor="${footerBg}" style="background-color:${footerBg};padding:20px 24px;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" width="100%" style="margin:0 auto;border-collapse:collapse;">
         <tr>
-          <td class="vv-s" width="304" valign="bottom" style="vertical-align:bottom;width:304px;max-width:304px;padding:0 16px 0 0;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
-              <tr>
-                <td style="padding:0 0 6px 0;">
-                  <a href="__WEBSITE_HREF__" style="font-family:${fontSans};font-size:10px;line-height:16px;font-weight:500;color:${link};text-decoration:none;letter-spacing:0.1px;">__WEBSITE_LABEL__</a>
-                </td>
-              </tr>
-              <tr>
-                <td style="font-family:${fontSans};font-size:8px;line-height:15px;font-weight:400;color:${muted};padding:0 0 10px 0;">__LOCATIONS__</td>
-              </tr>
-              <tr>
-                <td style="padding:0;">__SOCIAL__</td>
-              </tr>
-            </table>
+          <td align="center" style="padding:0 0 7px 0;">__LOGO_IMG__</td>
+        </tr>
+        <tr>
+          <td align="center" style="font-family:${fontSans};font-size:10px;line-height:15px;font-weight:400;color:${text};padding:0 0 7px 0;text-align:center;">__LOCATIONS__</td>
+        </tr>
+        <tr>
+          <td align="center" style="font-family:${fontSans};font-size:10px;line-height:16px;font-weight:400;color:#969696;padding:0 0 18px 0;text-align:center;">__ADDRESS__</td>
+        </tr>
+        <tr>
+          <td align="center" style="padding:0 0 18px 0;">
+            <a href="__WEBSITE_HREF__" style="font-family:${fontSans};font-size:10px;line-height:12px;font-weight:400;color:${link};text-decoration:none;">__WEBSITE_LABEL__</a>
           </td>
-          <td class="vv-s vv-s2 vv-l" valign="bottom" align="center" style="vertical-align:bottom;text-align:center;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="right" width="176" style="width:176px;max-width:176px;border-collapse:collapse;margin:0;">
-              <tr>
-                <td align="center" style="padding:0 0 12px 0;text-align:center;">__LOGO_IMG__</td>
-              </tr>
-              <tr>
-                <td class="vv-l" align="center" style="font-family:${fontSans};font-size:8px;line-height:12px;font-weight:400;color:${muted};text-align:center;">__ADDRESS__</td>
-              </tr>
-            </table>
-          </td>
+        </tr>
+        <tr>
+          <td align="center" style="font-family:${fontSans};font-size:10px;line-height:12px;font-weight:400;color:${text};padding:0 0 12px 0;text-align:center;">Follow us on</td>
+        </tr>
+        <tr>
+          <td align="center" style="padding:0;text-align:center;">__SOCIAL__</td>
         </tr>
       </table>
     </td>
@@ -212,13 +207,20 @@ function buildHtml(values) {
     ");background-repeat:no-repeat;background-position:right top;background-size:" +
     PATTERN_BG_WIDTH_PX +
     "px auto;";
-  /** Outlook (Win): VML frame stretches the image to the rect (tile used native 899px → huge stars). */
+  /**
+   * Outlook (Win): VML background image.
+   * - mso-width-percent:1000 → fills 100% of the parent container (avoids
+   *   hard-coding 600px which breaks if the pane is narrower).
+   * - height:160px matches the actual hero content height (≈155px rendered).
+   * - mso-fit-shape-to-text:true on the textbox lets it grow if content is taller.
+   * - type="frame" scales the 899×233 image to fill the rect without tiling.
+   */
   const msoPatternOpen =
-    '<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:220px;">' +
+    '<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="mso-width-percent:1000;height:160px;">' +
     '<v:fill type="frame" src="' +
     u +
     '" color="#ffffff" />' +
-    '<v:textbox inset="0,0,0,0" style="mso-fit-shape-to-text:true">' +
+    '<v:textbox inset="0,0,0,0" style="mso-fit-shape-to-text:true;">' +
     "<![endif]-->";
   const msoPatternClose = "<!--[if gte mso 9]></v:textbox></v:rect><![endif]-->";
 
@@ -424,6 +426,102 @@ async function init() {
   renderForm(fields);
   document.getElementById("fields").addEventListener("input", updatePreview);
   updatePreview();
+
+  /* ── Responsive preview (Chrome DevTools style) ── */
+  const rwdViewport = document.getElementById("rwdViewport");
+  const rwdStage = rwdViewport.parentElement;
+  const vpWInput = document.getElementById("vpW");
+  const vpHEl = document.getElementById("vpH");
+  const previewIframe = document.getElementById("preview");
+
+  function syncDimDisplay() {
+    const w = rwdViewport.getBoundingClientRect().width;
+    const h = previewIframe.getBoundingClientRect().height;
+    vpWInput.value = Math.round(w);
+    vpHEl.textContent = Math.round(h);
+  }
+
+  function setViewportWidth(w) {
+    const isFullWidth = w === 0;
+    rwdViewport.classList.toggle("rwd-full", isFullWidth);
+    if (!isFullWidth) {
+      const stageW = rwdStage.clientWidth - 80; // account for padding + handles
+      rwdViewport.style.width = Math.max(280, Math.min(w, stageW)) + "px";
+    } else {
+      rwdViewport.style.width = "";
+    }
+    document.querySelectorAll(".rwd-preset").forEach((b) => {
+      b.classList.toggle("active", parseInt(b.dataset.w) === w);
+    });
+    syncDimDisplay();
+  }
+
+  document.querySelectorAll(".rwd-preset").forEach((btn) => {
+    btn.addEventListener("click", () => setViewportWidth(parseInt(btn.dataset.w)));
+  });
+
+  vpWInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      const v = Math.max(280, Math.min(parseInt(vpWInput.value) || 600, 2000));
+      setViewportWidth(v);
+      document.querySelectorAll(".rwd-preset").forEach((b) => b.classList.remove("active"));
+    }
+  });
+
+  vpWInput.addEventListener("blur", () => {
+    const v = Math.max(280, Math.min(parseInt(vpWInput.value) || 600, 2000));
+    setViewportWidth(v);
+    document.querySelectorAll(".rwd-preset").forEach((b) => b.classList.remove("active"));
+  });
+
+  /* Drag-to-resize handles */
+  let dragState = null;
+
+  function startDrag(e, side) {
+    e.preventDefault();
+    const rect = rwdViewport.getBoundingClientRect();
+    dragState = {
+      side,
+      startX: e.clientX,
+      startW: rect.width,
+      anchorX: side === "right" ? rect.left : rect.right,
+    };
+    document.querySelectorAll(".rwd-handle").forEach((h) => h.classList.remove("dragging"));
+    e.currentTarget.classList.add("dragging");
+    document.body.style.cursor = "ew-resize";
+    document.body.style.userSelect = "none";
+    rwdViewport.classList.remove("rwd-full");
+  }
+
+  document.getElementById("rwdHandleR").addEventListener("mousedown", (e) => startDrag(e, "right"));
+  document.getElementById("rwdHandleL").addEventListener("mousedown", (e) => startDrag(e, "left"));
+
+  document.addEventListener("mousemove", (e) => {
+    if (!dragState) return;
+    const stageW = rwdStage.clientWidth - 80;
+    let newW;
+    if (dragState.side === "right") {
+      newW = dragState.startW + (e.clientX - dragState.startX);
+    } else {
+      newW = dragState.startW - (e.clientX - dragState.startX);
+    }
+    newW = Math.max(280, Math.min(newW, stageW));
+    rwdViewport.style.width = newW + "px";
+    vpWInput.value = Math.round(newW);
+    document.querySelectorAll(".rwd-preset").forEach((b) => b.classList.remove("active"));
+  });
+
+  document.addEventListener("mouseup", () => {
+    if (!dragState) return;
+    dragState = null;
+    document.querySelectorAll(".rwd-handle").forEach((h) => h.classList.remove("dragging"));
+    document.body.style.cursor = "";
+    document.body.style.userSelect = "";
+    syncDimDisplay();
+  });
+
+  new ResizeObserver(syncDimDisplay).observe(rwdViewport);
+  syncDimDisplay();
 
   const copyBtn = document.getElementById("copyBtn");
   copyBtn.addEventListener("click", async () => {
