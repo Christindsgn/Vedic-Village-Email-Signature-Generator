@@ -27,8 +27,13 @@ function hostedAssets() {
   };
 }
 
-/** Hero pattern: bg.png ~899×233 — scale to signature width; Figma 663:5185. */
-const PATTERN_BG_WIDTH_PX = 600;
+/**
+ * Hero pattern dimensions.
+ * bg.png is 899×233px. Shown in the right column of the hero (296px wide).
+ * Height is locked to 155px so it fills the hero row regardless of aspect ratio.
+ */
+const PATTERN_COL_W = 296;
+const PATTERN_COL_H = 155;
 
 const BRAND = {
   text: "#000000",
@@ -138,34 +143,43 @@ function formatAddress(s) {
 function signatureTemplate() {
   const { text, link, footerBg, fontSans } = BRAND;
   return `<!-- Vedic Village email signature — Verdana -->
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px;max-width:600px;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
   <tr>
-    <td width="100%" valign="top" bgcolor="#FFFFFF" __PATTERN_ATTR__ style="padding:15px 24px 15px 0;__PATTERN_STYLE__">
-      __MSO_PATTERN_OPEN__
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="304" style="width:304px;max-width:304px;border-collapse:collapse;border-spacing:0;">
+    <td width="600" bgcolor="#FFFFFF" style="padding:0;background-color:#FFFFFF;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px;border-collapse:collapse;">
         <tr>
-          <td style="padding:0;">
-            <span style="display:block;font-family:${fontSans};font-size:14px;line-height:normal;font-weight:bold;color:${text};margin:0 0 8px 0;padding:0;">__FULLNAME__</span>
+          <!-- Left: text content -->
+          <td width="304" valign="top" style="width:304px;padding:15px 0 15px 0;background-color:#FFFFFF;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="304" style="width:304px;max-width:304px;border-collapse:collapse;border-spacing:0;">
+              <tr>
+                <td style="padding:0 0 0 0;">
+                  <span style="display:block;font-family:${fontSans};font-size:14px;line-height:normal;font-weight:bold;color:${text};margin:0 0 8px 0;padding:0;">__FULLNAME__</span>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-family:${fontSans};font-size:11px;line-height:18px;font-weight:400;color:${text};padding:0;">__TITLE1__</td>
+              </tr>
+              <tr>
+                <td style="font-family:${fontSans};font-size:11px;line-height:18px;font-weight:400;color:${text};padding:0 0 8px 0;">__TITLE2__</td>
+              </tr>
+              <tr>
+                <td style="padding:0 0 8px 0;">
+                  <a href="__MAILTO__" style="font-family:${fontSans};font-size:12px;line-height:20px;font-weight:400;color:${link};text-decoration:none;letter-spacing:0.12px;">__EMAIL__</a>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:0;">
+                  <a href="__TEL__" style="font-family:${fontSans};font-size:12px;line-height:20px;font-weight:400;color:${link};text-decoration:none;letter-spacing:0.12px;">__PHONE__</a>
+                </td>
+              </tr>
+            </table>
           </td>
-        </tr>
-        <tr>
-          <td style="font-family:${fontSans};font-size:11px;line-height:18px;font-weight:400;color:${text};padding:0;">__TITLE1__</td>
-        </tr>
-        <tr>
-          <td style="font-family:${fontSans};font-size:11px;line-height:18px;font-weight:400;color:${text};padding:0 0 8px 0;">__TITLE2__</td>
-        </tr>
-        <tr>
-          <td style="padding:0 0 8px 0;">
-            <a href="__MAILTO__" style="font-family:${fontSans};font-size:12px;line-height:20px;font-weight:400;color:${link};text-decoration:none;letter-spacing:0.12px;">__EMAIL__</a>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:0;">
-            <a href="__TEL__" style="font-family:${fontSans};font-size:12px;line-height:20px;font-weight:400;color:${link};text-decoration:none;letter-spacing:0.12px;">__PHONE__</a>
+          <!-- Right: hero pattern image (real <img> — works in Outlook + Gmail) -->
+          <td width="296" valign="top" style="width:296px;padding:0;vertical-align:top;line-height:0;font-size:0;">
+            <img src="__PATTERN_SRC__" width="296" height="155" alt="" border="0" style="display:block;width:296px;height:155px;border:0;line-height:0;font-size:0;">
           </td>
         </tr>
       </table>
-      __MSO_PATTERN_CLOSE__
     </td>
   </tr>
   <tr>
@@ -199,30 +213,6 @@ function signatureTemplate() {
 
 function buildHtml(values) {
   const assets = hostedAssets();
-  const u = escapeHtml(ensureUrl(assets.patternBg));
-  const patternAttr = 'background="' + u + '"';
-  const patternStyle =
-    "background-color:#FFFFFF;background-image:url(" +
-    u +
-    ");background-repeat:no-repeat;background-position:right top;background-size:" +
-    PATTERN_BG_WIDTH_PX +
-    "px auto;";
-  /**
-   * Outlook (Win): VML background image.
-   * - mso-width-percent:1000 → fills 100% of the parent container (avoids
-   *   hard-coding 600px which breaks if the pane is narrower).
-   * - height:160px matches the actual hero content height (≈155px rendered).
-   * - mso-fit-shape-to-text:true on the textbox lets it grow if content is taller.
-   * - type="frame" scales the 899×233 image to fill the rect without tiling.
-   */
-  const msoPatternOpen =
-    '<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="mso-width-percent:1000;height:160px;">' +
-    '<v:fill type="frame" src="' +
-    u +
-    '" color="#ffffff" />' +
-    '<v:textbox inset="0,0,0,0" style="mso-fit-shape-to-text:true;">' +
-    "<![endif]-->";
-  const msoPatternClose = "<!--[if gte mso 9]></v:textbox></v:rect><![endif]-->";
 
   let websiteHref = ensureUrl(values.websiteUrl);
   if (!websiteHref) websiteHref = "#";
@@ -236,10 +226,7 @@ function buildHtml(values) {
   const telRaw = telHref(values.phone);
   let html = signatureTemplate();
   const map = {
-    __PATTERN_ATTR__: patternAttr,
-    __PATTERN_STYLE__: patternStyle,
-    __MSO_PATTERN_OPEN__: msoPatternOpen,
-    __MSO_PATTERN_CLOSE__: msoPatternClose,
+    __PATTERN_SRC__: escapeHtml(ensureUrl(assets.patternBg)),
     __FULLNAME__: escapeHtml(values.fullName),
     __TITLE1__: escapeHtml(values.titleLine1),
     __TITLE2__: escapeHtml(values.titleLine2),
