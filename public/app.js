@@ -30,10 +30,12 @@ function hostedAssets() {
 /**
  * Hero pattern column dimensions.
  * bg.png is 899×233px. Right column is 296px wide.
- * Natural height at 296px width = round(296 × 233 / 899) = 77px.
+ * Natural height at 296px width = round(296 × 233 / 899) = 77px — no distortion.
+ * Hero row is locked to 147px via the td height attribute.
  */
 const PATTERN_COL_W = 296;
 const PATTERN_COL_H = 77;
+const HERO_H = 147;
 
 const BRAND = {
   text: "#000000",
@@ -148,8 +150,8 @@ function signatureTemplate() {
     <td width="600" bgcolor="#FFFFFF" style="padding:0;background-color:#FFFFFF;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px;border-collapse:collapse;">
         <tr>
-          <!-- Left: text content -->
-          <td width="304" valign="top" style="width:304px;padding:15px 0 15px 0;background-color:#FFFFFF;">
+          <!-- Left: text content — height:147px locks the hero row height -->
+          <td width="304" height="147" valign="top" style="width:304px;height:147px;padding:15px 0 15px 0;background-color:#FFFFFF;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="304" style="width:304px;max-width:304px;border-collapse:collapse;border-spacing:0;">
               <tr>
                 <td style="padding:0 0 0 0;">
@@ -174,8 +176,8 @@ function signatureTemplate() {
               </tr>
             </table>
           </td>
-          <!-- Right: hero pattern image (real <img> — works in Outlook + Gmail) -->
-          <td width="296" valign="top" style="width:296px;padding:0;vertical-align:top;line-height:0;font-size:0;">
+          <!-- Right: hero pattern at natural aspect ratio (296×77px); row height is 147px -->
+          <td width="296" height="147" valign="top" style="width:296px;height:147px;padding:0;vertical-align:top;line-height:0;font-size:0;background-color:#FFFFFF;">
             <img src="__PATTERN_SRC__" width="296" height="77" alt="" border="0" style="display:block;width:296px;height:77px;border:0;line-height:0;font-size:0;">
           </td>
         </tr>
