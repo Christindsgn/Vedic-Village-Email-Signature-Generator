@@ -28,12 +28,12 @@ function hostedAssets() {
 }
 
 /**
- * Hero pattern dimensions.
- * bg.png is 899×233px. Shown in the right column of the hero (296px wide).
- * Height is locked to 155px so it fills the hero row regardless of aspect ratio.
+ * Hero pattern column dimensions.
+ * bg.png is 899×233px. Right column is 296px wide.
+ * Natural height at 296px width = round(296 × 233 / 899) = 77px.
  */
 const PATTERN_COL_W = 296;
-const PATTERN_COL_H = 155;
+const PATTERN_COL_H = 77;
 
 const BRAND = {
   text: "#000000",
@@ -176,7 +176,7 @@ function signatureTemplate() {
           </td>
           <!-- Right: hero pattern image (real <img> — works in Outlook + Gmail) -->
           <td width="296" valign="top" style="width:296px;padding:0;vertical-align:top;line-height:0;font-size:0;">
-            <img src="__PATTERN_SRC__" width="296" height="155" alt="" border="0" style="display:block;width:296px;height:155px;border:0;line-height:0;font-size:0;">
+            <img src="__PATTERN_SRC__" width="296" height="77" alt="" border="0" style="display:block;width:296px;height:77px;border:0;line-height:0;font-size:0;">
           </td>
         </tr>
       </table>
