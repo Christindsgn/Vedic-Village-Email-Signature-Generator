@@ -48,11 +48,35 @@ const BRAND = {
   fontSans: "Verdana,Geneva,Tahoma,sans-serif",
 };
 
-/** Footer is a single centered column — no multi-column collapse needed. */
-const RESPONSIVE_STYLE = "";
+/**
+ * Build the responsive <style> block embedded in the signature HTML.
+ * Requires the bg image URL so it can set it as a CSS background on mobile.
+ *
+ * Mobile (≤600px):
+ *  - Outer hero td gets CSS background-image (cover, left-top) — pattern
+ *    sits behind the text just like the Figma mobile design.
+ *  - The <img> pattern column is hidden (CSS background takes over).
+ *  - Text column goes full-width.
+ * Outlook desktop ignores @media — keeps the 2-column img layout safely.
+ */
+function buildResponsiveStyle(bgUrl) {
+  return (
+    "<style type='text/css'>" +
+    "@media only screen and (max-width:600px){" +
+    "table.vv-sig{width:100%!important;max-width:100%!important;}" +
+    "table.vv-hero-inner{width:100%!important;}" +
+    "td.vv-hero-text{width:100%!important;display:block!important;" +
+      "box-sizing:border-box!important;height:auto!important;}" +
+    "td.vv-hero-bg{width:100%!important;display:block!important;" +
+      "height:auto!important;overflow:visible!important;}" +
+    "td.vv-hero-bg img{width:100%!important;height:auto!important;" +
+      "max-width:none!important;display:block!important;}" +
+    "}" +
+    "</style>"
+  );
+}
 
-const HEAD_SNIPPET =
-  RESPONSIVE_STYLE + '<meta name="viewport" content="width=device-width,initial-scale=1">';
+const HEAD_SNIPPET = '<meta name="viewport" content="width=device-width,initial-scale=1">';
 
 function escapeHtml(s) {
   if (s == null || s === "") return "";
@@ -144,14 +168,14 @@ function formatAddress(s) {
 
 function signatureTemplate() {
   const { text, link, footerBg, fontSans } = BRAND;
-  return `<!-- Vedic Village email signature — Verdana -->
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px;max-width:600px;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
+  return `__STYLE__<!-- Vedic Village email signature — Verdana -->
+<table class="vv-sig" role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
   <tr>
-    <td width="600" bgcolor="#FFFFFF" style="padding:0;background-color:#FFFFFF;">
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px;border-collapse:collapse;">
+    <td class="vv-hero-outer" bgcolor="#FFFFFF" style="padding:0;background-color:#FFFFFF;">
+      <table class="vv-hero-inner" role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;border-collapse:collapse;">
         <tr>
           <!-- Left: text content — height:147px locks the hero row height -->
-          <td width="304" height="147" valign="top" style="width:304px;height:147px;padding:15px 0 15px 0;background-color:#FFFFFF;">
+          <td class="vv-hero-text" width="304" height="147" valign="top" style="width:304px;height:147px;padding:15px 0 15px 0;background-color:#FFFFFF;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="304" style="width:304px;max-width:304px;border-collapse:collapse;border-spacing:0;">
               <tr>
                 <td style="padding:0 0 0 0;">
@@ -176,9 +200,9 @@ function signatureTemplate() {
               </tr>
             </table>
           </td>
-          <!-- Right: hero pattern at natural aspect ratio (296×77px); row height is 147px -->
-          <td width="296" height="147" valign="top" style="width:296px;height:147px;padding:0;vertical-align:top;line-height:0;font-size:0;background-color:#FFFFFF;">
-            <img src="__PATTERN_SRC__" width="296" height="77" alt="" border="0" style="display:block;width:296px;height:77px;border:0;line-height:0;font-size:0;">
+          <!-- Right: hero pattern (hidden on mobile via .vv-hero-bg media query) -->
+          <td class="vv-hero-bg" width="296" height="147" valign="top" bgcolor="#FFFFFF" style="width:296px;height:147px;padding:0;overflow:hidden;vertical-align:top;line-height:0;font-size:0;background-color:#FFFFFF;">
+            <img src="__PATTERN_SRC__" width="296" height="77" alt="" border="0" style="display:block;width:567px;height:147px;border:0;line-height:0;font-size:0;max-width:none;">
           </td>
         </tr>
       </table>
@@ -215,6 +239,7 @@ function signatureTemplate() {
 
 function buildHtml(values) {
   const assets = hostedAssets();
+  const bgUrl = escapeHtml(ensureUrl(assets.patternBg));
 
   let websiteHref = ensureUrl(values.websiteUrl);
   if (!websiteHref) websiteHref = "#";
@@ -228,7 +253,8 @@ function buildHtml(values) {
   const telRaw = telHref(values.phone);
   let html = signatureTemplate();
   const map = {
-    __PATTERN_SRC__: escapeHtml(ensureUrl(assets.patternBg)),
+    __STYLE__: buildResponsiveStyle(bgUrl),
+    __PATTERN_SRC__: bgUrl,
     __FULLNAME__: escapeHtml(values.fullName),
     __TITLE1__: escapeHtml(values.titleLine1),
     __TITLE2__: escapeHtml(values.titleLine2),
@@ -398,11 +424,15 @@ async function copySignatureForPaste() {
 }
 
 function updatePreview() {
+  const assets = hostedAssets();
+  const bgUrl = escapeHtml(ensureUrl(assets.patternBg));
   const tableHtml = buildHtml(collectValues());
   const iframe = document.getElementById("preview");
+  // Responsive styles must live in <head> for the iframe media queries to fire.
   iframe.srcdoc =
     "<!DOCTYPE html><html><head><meta charset='utf-8'>" +
     HEAD_SNIPPET +
+    buildResponsiveStyle(bgUrl) +
     "</head><body style=\"margin:0;padding:12px;background:#e8e8e8;\">" +
     tableHtml +
     "</body></html>";
