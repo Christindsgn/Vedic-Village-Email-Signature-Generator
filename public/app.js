@@ -27,54 +27,13 @@ function hostedAssets() {
   };
 }
 
-/**
- * Hero pattern column dimensions.
- * bg.png is 899×233px. Right column is 296px wide.
- * Natural height at 296px width = round(296 × 233 / 899) = 77px — no distortion.
- * Hero row is locked to 147px via the td height attribute.
- */
-const PATTERN_COL_W = 296;
-const PATTERN_COL_H = 77;
-const HERO_H = 147;
-
 const BRAND = {
-  text: "#000000",
-  muted: "#000000",
+  text: "#131010",
   link: "#0a84a9",
-  /** Social vectors in Figma use ~#a24213 */
-  socialBrown: "#a24213",
   footerBg: "#fdfaf7",
   /** Verdana is web-safe and renders consistently across Outlook (Win/Mac) and Gmail. */
   fontSans: "Verdana,Geneva,Tahoma,sans-serif",
 };
-
-/**
- * Build the responsive <style> block embedded in the signature HTML.
- * Requires the bg image URL so it can set it as a CSS background on mobile.
- *
- * Mobile (≤600px):
- *  - Outer hero td gets CSS background-image (cover, left-top) — pattern
- *    sits behind the text just like the Figma mobile design.
- *  - The <img> pattern column is hidden (CSS background takes over).
- *  - Text column goes full-width.
- * Outlook desktop ignores @media — keeps the 2-column img layout safely.
- */
-function buildResponsiveStyle(bgUrl) {
-  return (
-    "<style type='text/css'>" +
-    "@media only screen and (max-width:600px){" +
-    "table.vv-sig{width:100%!important;max-width:100%!important;}" +
-    "table.vv-hero-inner{width:100%!important;}" +
-    "td.vv-hero-text{width:100%!important;display:block!important;" +
-      "box-sizing:border-box!important;height:auto!important;}" +
-    "td.vv-hero-bg{width:100%!important;display:block!important;" +
-      "height:auto!important;overflow:visible!important;}" +
-    "td.vv-hero-bg img{width:100%!important;height:auto!important;" +
-      "max-width:none!important;display:block!important;}" +
-    "}" +
-    "</style>"
-  );
-}
 
 const HEAD_SNIPPET = '<meta name="viewport" content="width=device-width,initial-scale=1">';
 
@@ -112,17 +71,11 @@ function buildSocial(instagramUrl, linkedinUrl, igIcon, liIcon) {
   const parts = [];
   if (igIcon && ig) {
     parts.push(
-      '<a href="' + escapeHtml(ig) + '" style="text-decoration:none;margin-right:20px;display:inline-block;"><img src="' + escapeHtml(ensureUrl(igIcon)) + '" width="24" height="24" alt="Instagram" border="0" style="display:block;border:0;"></a>'
+      '<a href="' + escapeHtml(ig) + '" style="text-decoration:none;margin-right:32px;display:inline-block;"><img src="' + escapeHtml(ensureUrl(igIcon)) + '" width="24" height="24" alt="Instagram" border="0" style="display:block;border:0;"></a>'
     );
   } else if (ig) {
     parts.push(
-      '<a href="' +
-        escapeHtml(ig) +
-        '" style="font-family:' +
-        BRAND.fontSans +
-        ';font-size:10px;font-weight:500;color:' +
-        BRAND.socialBrown +
-        ';text-decoration:underline;margin-right:12px;">Instagram</a>'
+      '<a href="' + escapeHtml(ig) + '" style="font-family:' + BRAND.fontSans + ';font-size:10px;font-weight:500;color:' + BRAND.link + ';text-decoration:underline;margin-right:32px;">Instagram</a>'
     );
   }
   if (liIcon && li) {
@@ -131,23 +84,17 @@ function buildSocial(instagramUrl, linkedinUrl, igIcon, liIcon) {
     );
   } else if (li) {
     parts.push(
-      '<a href="' +
-        escapeHtml(li) +
-        '" style="font-family:' +
-        BRAND.fontSans +
-        ';font-size:10px;font-weight:500;color:' +
-        BRAND.socialBrown +
-        ';text-decoration:underline;">LinkedIn</a>'
+      '<a href="' + escapeHtml(li) + '" style="font-family:' + BRAND.fontSans + ';font-size:10px;font-weight:500;color:' + BRAND.link + ';text-decoration:underline;">LinkedIn</a>'
     );
   }
-  return parts.join("") || '<span style="font-size:11px;color:#666;">Add social URLs in the form</span>';
+  return parts.join('') || '<span style="font-size:11px;color:#666;">Add social URLs in the form</span>';
 }
 
 function buildLogoHtml(logoUrl) {
   return (
     '<img src="' +
     escapeHtml(ensureUrl(logoUrl)) +
-    '" alt="Logo" border="0" style="display:block;margin:0 auto;border:0;max-height:32px;height:auto;width:auto;max-width:120px;">'
+    '" alt="Logo" border="0" style="display:block;margin:0 auto;border:0;max-height:40px;height:auto;width:auto;max-width:120px;">'
   );
 }
 
@@ -168,28 +115,28 @@ function formatAddress(s) {
 
 function signatureTemplate() {
   const { text, link, footerBg, fontSans } = BRAND;
-  return `__STYLE__<!-- Vedic Village email signature — Verdana -->
-<table class="vv-sig" role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
+  return `<!-- Vedic Village email signature — Verdana -->
+<table class="vv-sig" role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
   <tr>
-    <td class="vv-hero-outer" bgcolor="#FFFFFF" style="padding:0;background-color:#FFFFFF;">
+    <td class="vv-hero-outer" bgcolor="#fefefe" style="padding:0;background-color:#fefefe;">
       <table class="vv-hero-inner" role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;border-collapse:collapse;">
         <tr>
-          <!-- Left: text content — height:147px locks the hero row height -->
-          <td class="vv-hero-text" width="304" height="147" valign="top" style="width:304px;height:147px;padding:15px 0 15px 0;background-color:#FFFFFF;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="304" style="width:304px;max-width:304px;border-collapse:collapse;border-spacing:0;">
+          <!-- Left: text content -->
+          <td class="vv-hero-text" width="50%" valign="top" style="width:50%;padding:24px 0 24px 0;background-color:#fefefe;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;border-collapse:collapse;border-spacing:0;">
               <tr>
-                <td style="padding:0 0 0 0;">
-                  <span style="display:block;font-family:${fontSans};font-size:14px;line-height:normal;font-weight:bold;color:${text};margin:0 0 8px 0;padding:0;">__FULLNAME__</span>
+                <td style="padding:0 0 7px 0;">
+                  <span style="display:block;font-family:${fontSans};font-size:14px;line-height:normal;font-weight:bold;color:${text};margin:0;padding:0;">__FULLNAME__</span>
                 </td>
               </tr>
               <tr>
                 <td style="font-family:${fontSans};font-size:11px;line-height:18px;font-weight:400;color:${text};padding:0;">__TITLE1__</td>
               </tr>
               <tr>
-                <td style="font-family:${fontSans};font-size:11px;line-height:18px;font-weight:400;color:${text};padding:0 0 8px 0;">__TITLE2__</td>
+                <td style="font-family:${fontSans};font-size:11px;line-height:18px;font-weight:400;color:${text};padding:0 0 7px 0;">__TITLE2__</td>
               </tr>
               <tr>
-                <td style="padding:0 0 8px 0;">
+                <td style="padding:0 0 7px 0;">
                   <a href="__MAILTO__" style="font-family:${fontSans};font-size:12px;line-height:20px;font-weight:400;color:${link};text-decoration:none;letter-spacing:0.12px;">__EMAIL__</a>
                 </td>
               </tr>
@@ -200,33 +147,33 @@ function signatureTemplate() {
               </tr>
             </table>
           </td>
-          <!-- Right: hero pattern (hidden on mobile via .vv-hero-bg media query) -->
-          <td class="vv-hero-bg" width="296" height="147" valign="top" bgcolor="#FFFFFF" style="width:296px;height:147px;padding:0;overflow:hidden;vertical-align:top;line-height:0;font-size:0;background-color:#FFFFFF;">
-            <img src="__PATTERN_SRC__" width="296" height="77" alt="" border="0" style="display:block;width:567px;height:147px;border:0;line-height:0;font-size:0;max-width:none;">
+          <!-- Right: hero pattern -->
+          <td class="vv-hero-bg" width="50%" valign="top" bgcolor="#fefefe" style="width:50%;padding:0;overflow:hidden;vertical-align:top;line-height:0;font-size:0;background-color:#fefefe;">
+            <img src="__PATTERN_SRC__" width="296" height="162" alt="" border="0" style="display:block;width:100%;height:100%;min-height:162px;object-fit:cover;border:0;line-height:0;font-size:0;">
           </td>
         </tr>
       </table>
     </td>
   </tr>
   <tr>
-    <td width="100%" bgcolor="${footerBg}" style="background-color:${footerBg};padding:20px 24px;">
+    <td width="100%" bgcolor="${footerBg}" style="background-color:${footerBg};padding:16px;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" width="100%" style="margin:0 auto;border-collapse:collapse;">
         <tr>
           <td align="center" style="padding:0 0 7px 0;">__LOGO_IMG__</td>
         </tr>
         <tr>
-          <td align="center" style="font-family:${fontSans};font-size:10px;line-height:15px;font-weight:400;color:${text};padding:0 0 7px 0;text-align:center;">__LOCATIONS__</td>
+          <td align="center" style="font-family:${fontSans};font-size:12px;line-height:20px;font-weight:400;color:${text};padding:0 0 7px 0;text-align:center;">__LOCATIONS__</td>
         </tr>
         <tr>
-          <td align="center" style="font-family:${fontSans};font-size:10px;line-height:16px;font-weight:400;color:#969696;padding:0 0 18px 0;text-align:center;">__ADDRESS__</td>
+          <td align="center" style="font-family:${fontSans};font-size:11px;line-height:16px;font-weight:400;color:#969696;padding:0 0 24px 0;text-align:center;">__ADDRESS__</td>
         </tr>
         <tr>
-          <td align="center" style="padding:0 0 18px 0;">
-            <a href="__WEBSITE_HREF__" style="font-family:${fontSans};font-size:10px;line-height:12px;font-weight:400;color:${link};text-decoration:none;">__WEBSITE_LABEL__</a>
+          <td align="center" style="padding:0 0 24px 0;">
+            <a href="__WEBSITE_HREF__" style="font-family:${fontSans};font-size:12px;line-height:12px;font-weight:400;color:${link};text-decoration:none;">__WEBSITE_LABEL__</a>
           </td>
         </tr>
         <tr>
-          <td align="center" style="font-family:${fontSans};font-size:10px;line-height:12px;font-weight:400;color:${text};padding:0 0 12px 0;text-align:center;">Follow us on</td>
+          <td align="center" style="font-family:${fontSans};font-size:11px;line-height:12px;font-weight:400;color:${text};padding:0 0 16px 0;text-align:center;">Follow us on</td>
         </tr>
         <tr>
           <td align="center" style="padding:0;text-align:center;">__SOCIAL__</td>
@@ -239,7 +186,6 @@ function signatureTemplate() {
 
 function buildHtml(values) {
   const assets = hostedAssets();
-  const bgUrl = escapeHtml(ensureUrl(assets.patternBg));
 
   let websiteHref = ensureUrl(values.websiteUrl);
   if (!websiteHref) websiteHref = "#";
@@ -253,8 +199,7 @@ function buildHtml(values) {
   const telRaw = telHref(values.phone);
   let html = signatureTemplate();
   const map = {
-    __STYLE__: buildResponsiveStyle(bgUrl),
-    __PATTERN_SRC__: bgUrl,
+    __PATTERN_SRC__: escapeHtml(ensureUrl(assets.patternBg)),
     __FULLNAME__: escapeHtml(values.fullName),
     __TITLE1__: escapeHtml(values.titleLine1),
     __TITLE2__: escapeHtml(values.titleLine2),
@@ -269,6 +214,7 @@ function buildHtml(values) {
     __SOCIAL__: social,
     __ADDRESS__: formatAddress(values.address),
   };
+
   for (const [k, v] of Object.entries(map)) {
     html = html.split(k).join(v);
   }
@@ -424,19 +370,15 @@ async function copySignatureForPaste() {
 }
 
 function updatePreview() {
-  const assets = hostedAssets();
-  const bgUrl = escapeHtml(ensureUrl(assets.patternBg));
   const tableHtml = buildHtml(collectValues());
   const iframe = document.getElementById("preview");
-  // Responsive styles must live in <head> for the iframe media queries to fire.
   iframe.srcdoc =
     "<!DOCTYPE html><html><head><meta charset='utf-8'>" +
     HEAD_SNIPPET +
-    buildResponsiveStyle(bgUrl) +
     "</head><body style=\"margin:0;padding:12px;background:#e8e8e8;\">" +
     tableHtml +
     "</body></html>";
-  window.__lastSignatureHtml = HEAD_SNIPPET + tableHtml;
+  window.__lastSignatureHtml = tableHtml;
 }
 
 async function init() {
