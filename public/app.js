@@ -122,11 +122,11 @@ function signatureTemplate() {
       <table class="vv-hero-inner" role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;border-collapse:collapse;">
         <tr>
           <!-- Left: text content -->
-          <td class="vv-hero-text" width="50%" valign="top" style="width:50%;padding:24px 0 24px 0;background-color:#fefefe;">
+          <td class="vv-hero-text" width="50%" valign="top" style="width:50%;padding:24px 0 24px 0;background-color:#fefefe;font-size:0;line-height:0;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;border-collapse:collapse;border-spacing:0;">
               <tr>
-                <td style="padding:0 0 7px 0;">
-                  <span style="display:block;font-family:${fontSans};font-size:14px;line-height:normal;font-weight:bold;color:${text};margin:0;padding:0;">__FULLNAME__</span>
+                <td style="padding:0 0 7px 0;font-size:0;line-height:0;">
+                  <span style="display:block;font-family:${fontSans};font-size:14px;line-height:17px;font-weight:bold;color:${text};margin:0;padding:0;">__FULLNAME__</span>
                 </td>
               </tr>
               <tr>
@@ -136,12 +136,12 @@ function signatureTemplate() {
                 <td style="font-family:${fontSans};font-size:11px;line-height:18px;font-weight:400;color:${text};padding:0 0 7px 0;">__TITLE2__</td>
               </tr>
               <tr>
-                <td style="padding:0 0 7px 0;">
+                <td style="padding:0 0 7px 0;font-size:0;line-height:0;">
                   <a href="__MAILTO__" style="font-family:${fontSans};font-size:12px;line-height:20px;font-weight:400;color:${link};text-decoration:none;letter-spacing:0.12px;">__EMAIL__</a>
                 </td>
               </tr>
               <tr>
-                <td style="padding:0;">
+                <td style="padding:0;font-size:0;line-height:0;">
                   <a href="__TEL__" style="font-family:${fontSans};font-size:12px;line-height:20px;font-weight:400;color:${link};text-decoration:none;letter-spacing:0.12px;">__PHONE__</a>
                 </td>
               </tr>
@@ -149,14 +149,14 @@ function signatureTemplate() {
           </td>
           <!-- Right: hero pattern -->
           <td class="vv-hero-bg" width="50%" valign="top" bgcolor="#fefefe" style="width:50%;padding:0;overflow:hidden;vertical-align:top;line-height:0;font-size:0;background-color:#fefefe;">
-            <img src="__PATTERN_SRC__" width="296" height="162" alt="" border="0" style="display:block;width:100%;height:100%;min-height:162px;object-fit:cover;border:0;line-height:0;font-size:0;">
+            <img src="__PATTERN_SRC__" width="296" height="162" alt="" border="0" style="display:block;width:100%;height:162px;object-fit:cover;border:0;line-height:0;font-size:0;">
           </td>
         </tr>
       </table>
     </td>
   </tr>
   <tr>
-    <td width="100%" bgcolor="${footerBg}" style="background-color:${footerBg};padding:16px;">
+    <td width="100%" bgcolor="${footerBg}" style="background-color:${footerBg};padding:24px 16px;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" width="100%" style="margin:0 auto;border-collapse:collapse;">
         <tr>
           <td align="center" style="padding:0 0 7px 0;">__LOGO_IMG__</td>
