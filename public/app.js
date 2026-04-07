@@ -54,12 +54,14 @@ function signatureTemplate() {
         </tr>
         <tr>
           <td style="font-family:Arial,sans-serif;font-size:12px;line-height:20px;letter-spacing:0.12px;padding-bottom:7px;">
-            <a href="__MAILTO__" style="color:#0286cd;text-decoration:none;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.12px;">__EMAIL__</a>
+            <a href="__MAILTO__" style="color:#0286CD;text-decoration:none;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.12px;">__EMAIL__</a>
           </td>
         </tr>
         <tr>
           <td style="font-family:Arial,sans-serif;font-size:12px;line-height:20px;letter-spacing:0.12px;padding-bottom:7px;">
-            <a href="__TEL__" style="color:#0286cd;text-decoration:none;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.12px;">__PHONE__</a>
+            <a href="__TEL__" style="color:#0286CD
+            
+            ;text-decoration:none;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.12px;">__PHONE__</a>
           </td>
         </tr>
         <tr>
@@ -86,7 +88,9 @@ function signatureTemplate() {
 
           <!-- LEFT: Logo -->
           <td width="71" valign="middle" style="padding-right:16px;">
-            <img src="__LOGO_SRC__" width="55" height="40" alt="Vedic Village" border="0" style="display:block;" />
+            <a href="__WEBSITE_HREF__" style="text-decoration:none;display:block;">
+              <img src="__LOGO_SRC__" width="55" height="40" alt="Vedic Village" border="0" style="display:block;" />
+            </a>
           </td>
 
           <!-- CENTER: Address -->
