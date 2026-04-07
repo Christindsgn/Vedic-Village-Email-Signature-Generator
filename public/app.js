@@ -73,7 +73,7 @@ function signatureTemplate() {
 
   <!-- PATTERN STRIP -->
   <tr>
-    <td bgcolor="#ffffff" style="padding:0;line-height:0;font-size:0;">
+    <td bgcolor="#f9f3ec" style="padding:0;line-height:0;font-size:0;">
       <img src="__PATTERN_SRC__" width="600" height="54" alt="" border="0" style="display:block;width:600px;max-width:100%;height:54px;" />
     </td>
   </tr>
