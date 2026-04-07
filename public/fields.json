@@ -44,12 +44,14 @@
   {
     "id": "instagramUrl",
     "label": "Instagram profile URL",
-    "type": "url"
+    "type": "url",
+    "default": "https://www.instagram.com/vedicvillagelife/"
   },
   {
     "id": "linkedinUrl",
     "label": "LinkedIn profile URL",
-    "type": "url"
+    "type": "url",
+    "default": "https://www.linkedin.com/company/vedicvillagekochi/"
   },
   {
     "id": "address",

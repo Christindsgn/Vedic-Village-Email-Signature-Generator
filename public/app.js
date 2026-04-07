@@ -157,8 +157,8 @@ function buildHtml(values) {
     __WEBSITE_LABEL__: escapeHtml(values.websiteLabel || values.websiteUrl),
     __ADDRESS1__: address1,
     __ADDRESS2__: address2,
-    __INSTAGRAM_HREF__: escapeHtml(ensureUrl(values.instagramUrl) || "https://instagram.com/vedicvillagehotels"),
-    __LINKEDIN_HREF__: escapeHtml(ensureUrl(values.linkedinUrl) || "https://linkedin.com/company/vedicvillagehotels"),
+    __INSTAGRAM_HREF__: escapeHtml(ensureUrl(values.instagramUrl) || "https://www.instagram.com/vedicvillagelife/"),
+    __LINKEDIN_HREF__: escapeHtml(ensureUrl(values.linkedinUrl) || "https://www.linkedin.com/company/vedicvillagekochi/"),
   };
 
   for (const [k, v] of Object.entries(map)) {
