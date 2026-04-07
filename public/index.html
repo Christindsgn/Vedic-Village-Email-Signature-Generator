@@ -18,34 +18,7 @@
       <div id="fields"></div>
     </section>
     <section class="panel preview-wrap" aria-label="Preview">
-      <div class="rwd-bar">
-        <div class="rwd-presets">
-          <button type="button" class="rwd-preset" data-w="375" title="Mobile (375px)">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-            Mobile
-          </button>
-          <button type="button" class="rwd-preset" data-w="768" title="Tablet (768px)">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-            Tablet
-          </button>
-          <button type="button" class="rwd-preset active" data-w="0" title="Desktop (full width)">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>
-            Desktop
-          </button>
-        </div>
-        <div class="rwd-dims">
-          <input type="number" id="vpW" class="dim-input" min="200" max="2000" aria-label="Viewport width in pixels">
-          <span class="dim-x">×</span>
-          <span id="vpH" class="dim-h">—</span>
-        </div>
-      </div>
-      <div class="rwd-stage">
-        <div id="rwdViewport" class="rwd-viewport rwd-full">
-          <iframe id="preview" title="Signature preview"></iframe>
-          <div id="rwdHandleR" class="rwd-handle rwd-handle-r" title="Drag to resize"></div>
-          <div id="rwdHandleL" class="rwd-handle rwd-handle-l" title="Drag to resize"></div>
-        </div>
-      </div>
+      <iframe id="preview" title="Signature preview"></iframe>
     </section>
   </main>
   <textarea id="fallbackCopy" class="sr-only" readonly aria-hidden="true"></textarea>
@@ -53,6 +26,6 @@
     <strong>Gmail:</strong> Gear → <strong>See all settings</strong> → <strong>General</strong> → scroll to <strong>Signature</strong> → create/edit → paste there. Then new emails use that signature automatically. <strong>Do not paste into the compose window</strong> to install it. If paste shows code in Signature settings: use Chrome, use our copy button, or copy from the preview (⌘A / Ctrl+A) and paste again.
     <strong>Outlook web:</strong> Settings → Mail → Signatures → edit — paste there. If the editor shows raw tags, use the copy button (preview-based) or copy from the preview area after selecting all.
   </footer>
-  <script src="app.js?v=20260329b"></script>
+  <script src="app.js?v=20260407"></script>
 </body>
 </html>

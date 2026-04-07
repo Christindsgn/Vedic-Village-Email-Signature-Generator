@@ -42,12 +42,6 @@
     "default": "vedicvillagehotels.com"
   },
   {
-    "id": "locations",
-    "label": "Locations (pipe-separated)",
-    "type": "text",
-    "default": "Alleppey | Kodungallur | Bengaluru | Sriperumbdur"
-  },
-  {
     "id": "instagramUrl",
     "label": "Instagram profile URL",
     "type": "url"
