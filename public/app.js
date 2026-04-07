@@ -59,9 +59,7 @@ function signatureTemplate() {
         </tr>
         <tr>
           <td style="font-family:Arial,sans-serif;font-size:12px;line-height:20px;letter-spacing:0.12px;padding-bottom:7px;">
-            <a href="__TEL__" style="color:#0286CD
-            
-            ;text-decoration:none;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.12px;">__PHONE__</a>
+            <a href="__TEL__" style="color:#0286CD;text-decoration:none;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.12px;">__PHONE__</a>
           </td>
         </tr>
         <tr>
