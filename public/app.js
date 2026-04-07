@@ -142,7 +142,7 @@ function buildHtml(values) {
   let html = signatureTemplate();
   const map = {
     __PATTERN_SRC__: escapeHtml(base + "/bg.png"),
-    __LOGO_SRC__: escapeHtml(base + "/vedic-Logo.png"),
+    __LOGO_SRC__: escapeHtml(base + "/vedic-logo.png"),
     __IG_ICON__: escapeHtml(base + "/Instagram.png"),
     __LI_ICON__: escapeHtml(base + "/Linkedin.png"),
     __FULLNAME__: escapeHtml(values.fullName),
