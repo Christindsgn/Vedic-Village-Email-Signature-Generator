@@ -133,7 +133,7 @@ function signatureTemplate() {
 function buildHtml(values) {
   const base = assetBase();
 
-  const title = [values.titleLine1, values.titleLine2].filter(Boolean).join(" - ");
+  const title = [values.titleLine1, values.titleLine2].filter(Boolean).join(" • ");
 
   const addressLines = String(values.address || "").split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
   const address1 = escapeHtml(addressLines[0] || "");
