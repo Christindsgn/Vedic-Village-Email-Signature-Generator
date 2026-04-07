@@ -53,12 +53,12 @@ function signatureTemplate() {
           <td style="font-family:Arial,sans-serif;font-size:11px;line-height:18px;color:#000000;padding-bottom:7px;">__TITLE__</td>
         </tr>
         <tr>
-          <td style="font-family:Arial,sans-serif;font-size:12px;line-height:20px;letter-spacing:0.12px;padding-bottom:7px;">
+          <td style="font-family:Arial,sans-serif;font-size:12px;line-height:20px;letter-spacing:0.12px;padding-bottom:12px;">
             <a href="__MAILTO__" style="color:#0286CD;text-decoration:none;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.12px;">__EMAIL__</a>
           </td>
         </tr>
         <tr>
-          <td style="font-family:Arial,sans-serif;font-size:12px;line-height:20px;letter-spacing:0.12px;padding-bottom:7px;">
+          <td style="font-family:Arial,sans-serif;font-size:12px;line-height:20px;letter-spacing:0.12px;padding-bottom:12px;">
             <a href="__TEL__" style="color:#0286CD;text-decoration:none;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.12px;">__PHONE__</a>
           </td>
         </tr>
