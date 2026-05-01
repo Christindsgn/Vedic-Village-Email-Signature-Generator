@@ -1,5 +1,7 @@
 const PRODUCTION_BASE = "https://framer-email-signature-generator.vercel.app";
 
+let darkModePreview = false;
+
 function assetBase() {
   if (typeof location !== "undefined" && /^https?:/i.test(location.protocol)) {
     const host = location.hostname;
@@ -40,11 +42,11 @@ function telHref(phone) {
 }
 
 function signatureTemplate() {
-  return `<table width="600" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:Arial,sans-serif;width:600px;max-width:100%;">
+  return `<table width="600" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:Arial,sans-serif;width:600px;max-width:100%;color-scheme:only light;">
 
   <!-- TOP: white section -->
   <tr>
-    <td bgcolor="#ffffff" style="padding:16px 8px;">
+    <td bgcolor="#ffffff" style="background-color:#ffffff;padding:16px 8px;">
       <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
         <tr>
           <td style="font-family:Arial,sans-serif;font-size:14px;font-weight:bold;color:#000000;padding-bottom:7px;">__FULLNAME__</td>
@@ -73,14 +75,14 @@ function signatureTemplate() {
 
   <!-- PATTERN STRIP -->
   <tr>
-    <td bgcolor="#ffffff" style="padding:0;line-height:0;font-size:0;">
+    <td bgcolor="#ffffff" style="background-color:#ffffff;padding:0;line-height:0;font-size:0;">
       <img src="__PATTERN_SRC__" width="600" height="54" alt="" border="0" style="display:block;width:600px;max-width:100%;height:54px;" />
     </td>
   </tr>
 
   <!-- BOTTOM: beige bar -->
   <tr>
-    <td bgcolor="#f6f6ee" style="padding:24px 61px 24px 24px;">
+    <td bgcolor="#f6f6ee" style="background-color:#f6f6ee;padding:24px 61px 24px 24px;">
       <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
         <tr>
 
@@ -215,8 +217,11 @@ function renderForm(fields) {
 function updatePreview() {
   const tableHtml = buildHtml(collectValues());
   const iframe = document.getElementById("preview");
+  const bgColor = darkModePreview ? "#1e1e1e" : "#e8e8e8";
   iframe.srcdoc =
-    "<!DOCTYPE html><html><head><meta charset='utf-8'></head><body style=\"margin:0;padding:12px;background:#e8e8e8;\">" +
+    "<!DOCTYPE html><html><head><meta charset='utf-8'></head><body style=\"margin:0;padding:12px;background:" +
+    bgColor +
+    ";\">" +
     tableHtml +
     "</body></html>";
   window.__lastSignatureHtml = tableHtml;
