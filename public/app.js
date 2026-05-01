@@ -322,6 +322,14 @@ async function init() {
       }, 2800);
     }
   });
+
+  const darkModeBtn = document.getElementById("darkModeBtn");
+  darkModeBtn.addEventListener("click", () => {
+    darkModePreview = !darkModePreview;
+    darkModeBtn.textContent = darkModePreview ? "Light Mode Preview" : "Dark Mode Preview";
+    darkModeBtn.style.background = darkModePreview ? "#0b7a72" : "#444";
+    updatePreview();
+  });
 }
 
 init().catch(console.error);
