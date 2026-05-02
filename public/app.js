@@ -89,7 +89,7 @@ function signatureTemplate() {
           <!-- LEFT: Logo -->
           <td width="71" valign="middle" style="padding-right:16px;">
             <a href="__WEBSITE_HREF__" style="text-decoration:none;display:block;">
-              <img src="__LOGO_SRC__" width="55" height="40" alt="Vedic Village" border="0" style="display:block;" />
+              <img src="__LOGO_SRC__" width="55" height="40" alt="Vedic Village" border="0" style="display:block;width:55px;height:40px;min-width:55px;min-height:40px;" />
             </a>
           </td>
 
@@ -111,13 +111,13 @@ function signatureTemplate() {
               <tr>
                 <td width="24" height="24">
                   <a href="__INSTAGRAM_HREF__" style="text-decoration:none;display:block;">
-                    <img src="__IG_ICON__" width="24" height="24" alt="Instagram" border="0" style="display:block;" />
+                    <img src="__IG_ICON__" width="24" height="24" alt="Instagram" border="0" style="display:block;width:24px;height:24px;min-width:24px;min-height:24px;" />
                   </a>
                 </td>
                 <td width="32">&nbsp;</td>
                 <td width="24" height="24">
                   <a href="__LINKEDIN_HREF__" style="text-decoration:none;display:block;">
-                    <img src="__LI_ICON__" width="24" height="24" alt="LinkedIn" border="0" style="display:block;" />
+                    <img src="__LI_ICON__" width="24" height="24" alt="LinkedIn" border="0" style="display:block;width:24px;height:24px;min-width:24px;min-height:24px;" />
                   </a>
                 </td>
               </tr>
@@ -300,6 +300,14 @@ async function init() {
   renderForm(fields);
   document.getElementById("fields").addEventListener("input", updatePreview);
   updatePreview();
+
+  const darkModeBtn = document.getElementById("darkModeBtn");
+  darkModeBtn.addEventListener("click", () => {
+    darkModePreview = !darkModePreview;
+    darkModeBtn.textContent = darkModePreview ? "Light Mode Preview" : "Dark Mode Preview";
+    darkModeBtn.style.background = darkModePreview ? "#222" : "#444";
+    updatePreview();
+  });
 
   const copyBtn = document.getElementById("copyBtn");
   copyBtn.addEventListener("click", async () => {
